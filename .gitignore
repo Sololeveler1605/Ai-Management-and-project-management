@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+
+__pycache__/
+.pytest_cache/
+*.py[cod]
+backend/local_dev.db
+
+frontend/node_modules/
+frontend/dist/

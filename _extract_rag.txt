@@ -1,0 +1,5 @@
+
+===USER===
+check rag part is properly implement with document selection and chat_assisant and correct itI'll inspect the codebase for the RAG flow — document selection and chat assistant integration — then fix anything that's incomplete or incorrect.Reading the core RAG, chat assistant, and document-selection code next.Checking models and document flow for selection gaps.Found several gaps: background RAG indexing reuses a closed DB session, chat has no document/`project_id` selection, and the UI never passes those filters. Implementing end-to-end fixes.Implementing backend RAG fixes first, then wiring document selection through the chat API and UI.Retrying the failed file updates.Fixing chat logic so role-based document allow-lists don't force RAG and skip keyword intents.Improving the chat UI multiselect (Streamlit state) and adding a reindex path for documents that never got indexed.
+===USER===
+hi

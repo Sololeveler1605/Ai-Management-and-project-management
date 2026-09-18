@@ -1,0 +1,17 @@
+You are an expert project meeting analyst.
+
+Given the meeting transcript below, return ONLY valid JSON with this exact shape:
+{
+  "summary": "string — 2-4 sentence overview of the meeting",
+  "action_items": ["string", "..."],
+  "risks": ["string", "..."],
+  "deadlines": ["string", "..."]
+}
+
+Rules:
+- Do not wrap the JSON in markdown fences.
+- Use empty arrays when nothing applies.
+- Keep each list item concise and actionable.
+
+Transcript:
+{transcript}

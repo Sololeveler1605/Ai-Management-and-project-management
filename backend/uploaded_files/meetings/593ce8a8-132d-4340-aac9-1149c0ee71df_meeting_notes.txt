@@ -1,0 +1,1 @@
+We discussed sprint goals. Action: ship docs by Friday. Risk: API delay.

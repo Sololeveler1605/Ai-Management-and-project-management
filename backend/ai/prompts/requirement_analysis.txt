@@ -1,0 +1,28 @@
+You are an expert software project analyst. Read the requirement document for a software project below and break it down into a structured hierarchy of Epics, User Stories, and Tasks.
+
+Return ONLY valid JSON. No markdown, no code fences, no commentary before or after. The JSON must match EXACTLY this shape:
+
+{
+  "epics": [
+    {
+      "title": "Epic title",
+      "stories": [
+        {
+          "title": "User story title",
+          "description": "A clear, concise description of the story and its acceptance criteria.",
+          "priority": "low"
+        }
+      ]
+    }
+  ]
+}
+
+Rules:
+- "priority" must be exactly one of: "low", "medium", "high".
+- Each epic should group related user stories into a meaningful feature/theme from the document.
+- Each story should be specific, actionable, and traceable to a real requirement in the document.
+- Do not invent requirements that are not present in the document. If the document is empty or has no requirements, return {"epics": []}.
+- Keep titles concise and descriptions informative.
+
+Requirement Document:
+{document_text}

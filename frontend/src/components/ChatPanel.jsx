@@ -1,0 +1,10 @@
+import { useEffect, useState } from 'react'
+import { api } from '../api/client'
+import { Empty, Loading } from './State'
+
+export default function ChatPanel() {
+  const [open, setOpen] = useState(false), [message, setMessage] = useState(''), [history, setHistory] = useState([]), [documents, setDocuments] = useState([]), [selected, setSelected] = useState([]), [busy, setBusy] = useState(false)
+  useEffect(() => { api.documents().then(setDocuments).catch(() => {}) }, [])
+  async function send(e) { e.preventDefault(); const text = message.trim(); if (!text || busy) return; setMessage(''); setHistory(h => [...h, { role: 'user', text }]); setBusy(true); try { const data = await api.chat(text, selected); setHistory(h => [...h, { role: 'assistant', text: data.answer }]) } catch (err) { setHistory(h => [...h, { role: 'assistant', text: `Could not reach chat API: ${err.message}` }]) } finally { setBusy(false) } }
+  return <div className={`chat ${open ? 'open' : ''}`}><button className="chat-toggle" onClick={() => setOpen(v => !v)}>🧠 AI Assistant</button>{open && <div className="chat-card"><div className="chat-head"><div><strong>AI Chat Assistant</strong><small>Tasks, projects and selected documents</small></div><button className="icon-button" onClick={() => setHistory([])}>Clear</button></div>{documents.length > 0 && <select multiple value={selected} onChange={e => setSelected([...e.target.selectedOptions].map(o => o.value))} className="chat-docs">{documents.map(d => <option key={d.id} value={d.id}>{d.filename} {d.chunk_count ? `(${d.chunk_count} chunks)` : '(not indexed)'}</option>)}</select>}{history.length === 0 ? <Empty>No messages yet — ask me anything.</Empty> : <div className="chat-history">{history.slice(-12).map((item, i) => <div key={i} className={`bubble ${item.role}`}>{item.text}</div>)}{busy && <Loading label="Thinking…" />}</div>}<form onSubmit={send} className="chat-form"><input value={message} onChange={e => setMessage(e.target.value)} placeholder="Ask about tasks or documents…" /><button className="button primary">Send</button></form></div>}</div>
+}
